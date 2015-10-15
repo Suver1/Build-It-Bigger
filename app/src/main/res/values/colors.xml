@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="red50" type="color">#ffebee</item>
+    <item name="red100" type="color">#ffcdd2</item>
+    <item name="red200" type="color">#ef9a9a</item>
+    <item name="red300" type="color">#e57373</item>
+    <item name="red400" type="color">#ef5350</item>
+    <item name="red500" type="color">#f44336</item>
+    <item name="red600" type="color">#e53935</item>
+    <item name="red700" type="color">#d32f2f</item>
+    <item name="red800" type="color">#c62828</item>
+    <item name="red900" type="color">#b71c1c</item>
+
+    <item name="redA100" type="color">#ff8a80</item>
+    <item name="redA200" type="color">#ff5252</item>
+    <item name="redA400" type="color">#ff1744</item>
+    <item name="redA700" type="color">#d50000</item>
+</resources>
