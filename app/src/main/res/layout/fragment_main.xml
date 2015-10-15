@@ -21,9 +21,10 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/instructions_text_view"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
         android:text="@string/button_text"
         android:onClick="tellJoke"
-
+        android:background="@color/red100"
         />
 
     <com.google.android.gms.ads.AdView
