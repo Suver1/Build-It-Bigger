@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import no.ahoi.builditbigger.JokeProvider;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view){
-        Toast.makeText(this, "derp", Toast.LENGTH_SHORT).show();
+        JokeProvider jokeProvider = new JokeProvider();
+        Toast.makeText(this, jokeProvider.getJoke(), Toast.LENGTH_LONG).show();
     }
 
 
