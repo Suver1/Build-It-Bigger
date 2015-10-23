@@ -1,5 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import no.ahoi.builditbigger.JokeProvider;
+import no.ahoi.gradle.jokewiz.JokeShow;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
@@ -54,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
     public void tellJoke(View view){
         JokeProvider jokeProvider = new JokeProvider();
         Toast.makeText(this, jokeProvider.getJoke(), Toast.LENGTH_LONG).show();
+
+        Intent intent = new Intent(getApplicationContext(), JokeShow.class);
+        Bundle extras = new Bundle();
+        extras.putString("joke", jokeProvider.getJoke());
+        intent.putExtras(extras);
+        startActivity(intent);
     }
 
 
