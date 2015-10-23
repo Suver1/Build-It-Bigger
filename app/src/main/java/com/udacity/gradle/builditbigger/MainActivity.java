@@ -54,10 +54,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view){
-        JokeProvider jokeProvider = new JokeProvider();
-        Toast.makeText(this, jokeProvider.getJoke(), Toast.LENGTH_LONG).show();
-
         Intent intent = new Intent(getApplicationContext(), JokeShow.class);
+        JokeProvider jokeProvider = new JokeProvider();
         Bundle extras = new Bundle();
         extras.putString("joke", jokeProvider.getJoke());
         intent.putExtras(extras);
