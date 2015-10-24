@@ -18,11 +18,14 @@ import no.ahoi.gradle.jokewiz.JokeShow;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static Context mAppContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mAppContext = getApplicationContext();
+
         // Settings for ActionBar - add icon and color
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -67,5 +70,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
+    public static String getProjectId() {
+        return mAppContext.getResources().getString(R.string.project_id);
+    }
 }

@@ -24,11 +24,14 @@ public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, St
     private static final String LOG_TAG = JokeEndpointsTask.class.getSimpleName();
     private static MyApi myApiService = null;
     private Context context;
+    private String mProjectId = MainActivity.getProjectId();
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
         if(myApiService == null) {  // Only do this once
             Log.d(LOG_TAG, "connecting...");
+            /*
+            // Before module was deployed (Works only with emulator)
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(),
                     new AndroidJsonFactory(), null)
                     // options for running against local devappserver
@@ -41,6 +44,10 @@ public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, St
                             abstractGoogleClientRequest.setDisableGZipContent(true);
                         }
                     });
+            */
+            // After module was deployed (Works with both emulator and connected devices)
+            MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
+                    .setRootUrl("https://" + mProjectId + ".appspot.com/_ah/api/");
             // end options for devappserver
 
             myApiService = builder.build();
