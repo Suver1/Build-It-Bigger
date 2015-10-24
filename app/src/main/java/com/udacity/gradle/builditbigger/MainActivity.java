@@ -1,11 +1,13 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setIcon(R.mipmap.ic_launcher);
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.red900)));
         }
+
+        JokeEndpointsTask jokeEndpointsTask = new JokeEndpointsTask();
+        jokeEndpointsTask.execute(new Pair<Context, String>(this, "Andy"));
     }
 
 
