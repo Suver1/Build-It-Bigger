@@ -12,6 +12,8 @@ import com.google.api.server.spi.config.ApiNamespace;
 
 import javax.inject.Named;
 
+import no.ahoi.builditbigger.JokeProvider;
+
 /**
  * An endpoint class we are exposing
  */
@@ -32,6 +34,14 @@ public class MyEndpoint {
     public MyBean sayHi(@Named("name") String name) {
         MyBean response = new MyBean();
         response.setData("Hi, " + name);
+
+        return response;
+    }
+    @ApiMethod(name = "fetchAndSetJoke")
+    public MyBean fetchAndSetJoke() {
+        // Fetches a joke from jokeProvider java library.
+        MyBean response = new MyBean();
+        response.setData(new JokeProvider().getJoke());
 
         return response;
     }

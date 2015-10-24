@@ -52,13 +52,13 @@ public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, St
 
             myApiService = builder.build();
         }
+        Log.d(LOG_TAG, mProjectId);
 
         context = params[0].first;
         String name = params[0].second;
 
         try {
-            Log.d(LOG_TAG, "executing...");
-            return myApiService.sayHi(name).execute().getData();
+            return myApiService.fetchAndSetJoke().execute().getData();
         } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage());
             return e.getMessage();
