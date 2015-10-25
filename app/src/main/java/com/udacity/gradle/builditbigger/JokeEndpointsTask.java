@@ -1,19 +1,19 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
-import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 
 import java.io.IOException;
 
 import no.ahoi.gradle.builditbigger.jokebackend.myApi.MyApi;
+import no.ahoi.gradle.jokewiz.JokeShow;
 
 /**
  * Created by Andreas on 24.10.2015.
@@ -23,11 +23,13 @@ import no.ahoi.gradle.builditbigger.jokebackend.myApi.MyApi;
 public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static final String LOG_TAG = JokeEndpointsTask.class.getSimpleName();
     private static MyApi myApiService = null;
-    private Context context;
-    private String mProjectId = MainActivity.getProjectId();
+    private Context mContext;
 
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
+        mContext = params[0].first;
+        String projectId = params[0].second;
+
         if(myApiService == null) {  // Only do this once
             Log.d(LOG_TAG, "connecting...");
             /*
@@ -47,15 +49,12 @@ public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, St
             */
             // After module was deployed (Works with both emulator and connected devices)
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                    .setRootUrl("https://" + mProjectId + ".appspot.com/_ah/api/");
+                    .setRootUrl("https://" + projectId + ".appspot.com/_ah/api/");
             // end options for devappserver
 
             myApiService = builder.build();
         }
-        Log.d(LOG_TAG, mProjectId);
-
-        context = params[0].first;
-        String name = params[0].second;
+        Log.d(LOG_TAG, projectId);
 
         try {
             return myApiService.fetchAndSetJoke().execute().getData();
@@ -67,7 +66,11 @@ public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, St
 
     @Override
     protected void onPostExecute(String result) {
-        Log.d(LOG_TAG, "Toasting");
-        Toast.makeText(context, result, Toast.LENGTH_LONG).show();
+        Log.d(LOG_TAG, "Starting android library activity: JokeShow");
+        Intent intent = new Intent(mContext, JokeShow.class);
+        Bundle extras = new Bundle();
+        extras.putString("joke", result);
+        intent.putExtras(extras);
+        mContext.startActivity(intent);
     }
 }

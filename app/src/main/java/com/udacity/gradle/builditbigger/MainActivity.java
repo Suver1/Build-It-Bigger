@@ -1,7 +1,6 @@
 package com.udacity.gradle.builditbigger;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.os.Bundle;
@@ -11,20 +10,14 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
-
-import no.ahoi.builditbigger.JokeProvider;
-import no.ahoi.gradle.jokewiz.JokeShow;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
-    private static Context mAppContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mAppContext = getApplicationContext();
 
         // Settings for ActionBar - add icon and color
         ActionBar actionBar = getSupportActionBar();
@@ -33,11 +26,7 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setIcon(R.mipmap.ic_launcher);
             actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.red900)));
         }
-
-        JokeEndpointsTask jokeEndpointsTask = new JokeEndpointsTask();
-        jokeEndpointsTask.execute(new Pair<Context, String>(this, "Andy"));
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,15 +51,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void tellJoke(View view){
-        Intent intent = new Intent(getApplicationContext(), JokeShow.class);
-        JokeProvider jokeProvider = new JokeProvider();
-        Bundle extras = new Bundle();
-        extras.putString("joke", jokeProvider.getJoke());
-        intent.putExtras(extras);
-        startActivity(intent);
-    }
-
-    public static String getProjectId() {
-        return mAppContext.getResources().getString(R.string.project_id);
+        JokeEndpointsTask jokeEndpointsTask = new JokeEndpointsTask();
+        jokeEndpointsTask.execute(new Pair<Context, String>(this,
+                getResources().getString(R.string.project_id)));
     }
 }
