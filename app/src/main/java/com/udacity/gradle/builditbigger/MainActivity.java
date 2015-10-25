@@ -63,8 +63,9 @@ public class MainActivity extends AppCompatActivity {
             showSpinner();
             // Execute a AsyncTask which gets a joke from a server and launches a new activity
             JokeEndpointsTask jokeEndpointsTask = new JokeEndpointsTask();
-            jokeEndpointsTask.execute(new Pair<Context, String>(this,
-                    getResources().getString(R.string.project_id)));
+            Pair pair = new Pair<Context, String>(this,
+                    getResources().getString(R.string.project_id));
+            jokeEndpointsTask.execute(pair);
         } else {
             onlineToast();
         }
