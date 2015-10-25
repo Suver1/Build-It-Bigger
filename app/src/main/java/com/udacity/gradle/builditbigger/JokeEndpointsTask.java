@@ -26,6 +26,10 @@ public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, St
     private static MyApi myApiService = null;
     private Context mContext;
 
+    // Unit test related
+    private JokeEndpointsTaskListener mListener;
+    private Exception mError;
+
     @Override
     protected String doInBackground(Pair<Context, String>... params) {
         mContext = params[0].first;
@@ -61,23 +65,48 @@ public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, St
             return myApiService.fetchAndSetJoke().execute().getData();
         } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage());
+            mError = e;
             return null;
         }
     }
 
     @Override
-    protected void onPostExecute(String result) {
-        if (result != null) {
-            Log.d(LOG_TAG, "Starting android library activity: JokeShow");
-            Intent intent = new Intent(mContext, JokeShow.class);
-            Bundle extras = new Bundle();
-            extras.putString("joke", result);
-            intent.putExtras(extras);
-            mContext.startActivity(intent);
-        } else {
-            Toast.makeText(mContext, mContext.getResources().getString(R.string.get_joke_failed),
-                    Toast.LENGTH_LONG).show();
+    protected void onCancelled() {
+        if (mListener != null) {
+            mError = new InterruptedException("AsyncTask cancelled");
+            mListener.onComplete(null, mError);
         }
-        MainActivity.hideSpinner();
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+
+        if (mListener == null) {
+            if (result != null) {
+                Log.d(LOG_TAG, "Starting android library activity: JokeShow");
+                Intent intent = new Intent(mContext, JokeShow.class);
+                Bundle extras = new Bundle();
+                extras.putString("joke", result);
+                intent.putExtras(extras);
+                mContext.startActivity(intent);
+            } else {
+                Toast.makeText(mContext, mContext.getResources().getString(R.string.get_joke_failed),
+                        Toast.LENGTH_LONG).show();
+            }
+            MainActivity.hideSpinner();
+        } else { // Test case
+            mListener.onComplete(result, mError);
+        }
+    }
+
+    // Unit test related
+    public JokeEndpointsTask setListener(JokeEndpointsTaskListener listener) {
+        mListener = listener;
+        return this;
+    }
+
+    // Unit test related
+    public static interface JokeEndpointsTaskListener {
+        public void onComplete(String joke, Exception e);
     }
 }
