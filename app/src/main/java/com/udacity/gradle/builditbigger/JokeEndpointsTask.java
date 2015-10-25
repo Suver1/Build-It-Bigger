@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Pair;
+import android.widget.Toast;
 
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -60,17 +61,22 @@ public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, St
             return myApiService.fetchAndSetJoke().execute().getData();
         } catch (IOException e) {
             Log.e(LOG_TAG, e.getMessage());
-            return e.getMessage();
+            return null;
         }
     }
 
     @Override
     protected void onPostExecute(String result) {
-        Log.d(LOG_TAG, "Starting android library activity: JokeShow");
-        Intent intent = new Intent(mContext, JokeShow.class);
-        Bundle extras = new Bundle();
-        extras.putString("joke", result);
-        intent.putExtras(extras);
-        mContext.startActivity(intent);
+        if (result != null) {
+            Log.d(LOG_TAG, "Starting android library activity: JokeShow");
+            Intent intent = new Intent(mContext, JokeShow.class);
+            Bundle extras = new Bundle();
+            extras.putString("joke", result);
+            intent.putExtras(extras);
+            mContext.startActivity(intent);
+        } else {
+            Toast.makeText(mContext, mContext.getResources().getString(R.string.get_joke_failed),
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }
