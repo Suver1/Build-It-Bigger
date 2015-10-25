@@ -12,15 +12,20 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+    private static ProgressBar mSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mSpinner = (ProgressBar)findViewById(R.id.loadJokeProgressBar);
+        hideSpinner();
 
         // Settings for ActionBar - add icon and color
         ActionBar actionBar = getSupportActionBar();
@@ -55,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void tellJoke(View view){
         if (isOnline()) {
+            showSpinner();
+            // Execute a AsyncTask which gets a joke from a server and launches a new activity
             JokeEndpointsTask jokeEndpointsTask = new JokeEndpointsTask();
             jokeEndpointsTask.execute(new Pair<Context, String>(this,
                     getResources().getString(R.string.project_id)));
@@ -75,5 +82,13 @@ public class MainActivity extends AppCompatActivity {
     private void onlineToast() {
         Toast.makeText(this, getResources().getString(R.string.network_lost),
                 Toast.LENGTH_LONG).show();
+    }
+
+    public static void showSpinner() {
+        mSpinner.setVisibility(View.VISIBLE);
+    }
+
+    public static void hideSpinner() {
+        mSpinner.setVisibility(View.GONE);
     }
 }

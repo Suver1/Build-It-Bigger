@@ -78,5 +78,6 @@ public class JokeEndpointsTask extends AsyncTask<Pair<Context, String>, Void, St
             Toast.makeText(mContext, mContext.getResources().getString(R.string.get_joke_failed),
                     Toast.LENGTH_LONG).show();
         }
+        MainActivity.hideSpinner();
     }
 }
