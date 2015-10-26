@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Build it Bigger - Free</string>
     <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!-- See your logcat to get your device ID - Used for Interstitial ad -->
+    <string name="test_device_id">7EC34BDDB3FC4AFC4C25B21D498074C1</string>
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
 </resources>
