@@ -10,7 +10,7 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        multiDexEnabled true // We reached 65K limit
+        multiDexEnabled true // We reached 65K limit because of play-services (AdMob) dependency
     }
     buildTypes {
         release {
@@ -30,7 +30,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile project(':jokeProvider')
     compile project(':jokeWiz')
     compile project(path: ':JokeBackend', configuration: 'android-endpoints')
 
