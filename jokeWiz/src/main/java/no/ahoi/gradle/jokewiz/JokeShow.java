@@ -1,7 +1,9 @@
 package no.ahoi.gradle.jokewiz;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -16,6 +18,15 @@ public class JokeShow extends AppCompatActivity {
         setContentView(R.layout.activity_joke_show);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // Settings for ActionBar - add icon and color
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowHomeEnabled(true);
+            actionBar.setIcon(R.mipmap.ic_launcher);
+            actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.red900)));
+        }
+
 
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
