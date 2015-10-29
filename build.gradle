@@ -17,3 +17,35 @@ allprojects {
         jcenter()
     }
 }
+
+task startServer(dependsOn: ':JokeBackend:appengineRun') {
+    doLast {
+        println 'Started GCE server.'
+    }
+}
+
+task runUnitTests(dependsOn: ':app:test') {
+    doLast {
+        println 'Ran unit tests.'
+    }
+}
+
+task runAllTests(dependsOn: ['runUnitTests', 'runConnectedAndroidTests']) {
+    doLast {
+        println 'Ran all tests successfully.'
+    }
+}
+
+task runConnectedAndroidTests(dependsOn: ':app:connectedAndroidTest') {
+    mustRunAfter startServer
+    finalizedBy 'stopServer'
+    doLast {
+        println 'Ran connected Android tests.'
+    }
+}
+
+task stopServer(dependsOn: ':JokeBackend:appengineStop') {
+    doLast {
+        println 'Stopped GCE server.'
+    }
+}
