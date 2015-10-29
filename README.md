@@ -8,6 +8,8 @@ ad or a loading bar is displayed, depending on ad availablitiy, and wether the f
 paid app version is running. When a joke returnes to the app, it opens a Android library
 which finally displays the joke.
 
+![](BuildItBiggerOverview.png)
+
 # Getting started
 
 To get the app running, clone the project and import it into Android Studio.
