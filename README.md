@@ -1,3 +1,21 @@
+# Short intro to the Build it Bigger project
+
+This is the fourth project in Udacity and Google's Android Developer Nanodegree program.
+The app delivers random _funny_ jokes to the user with the click of a button.
+To receive the jokes, the app connects to a GCE server asynchronously, which in turn
+requests a Java library to supply the jokes. Meanwhile the joke is loading, a fullscreen
+ad or a loading bar is displayed, depending on ad availablitiy, and wether the free or
+paid app version is running. When a joke returnes to the app, it opens a Android library
+which finally displays the joke.
+
+# Getting started
+
+To get the app running, clone the project and import it into Android Studio.
+Replace the project_id string in ...\Build It Bigger\app\src\main\res\values/strings.xml
+with your own project id. A project can be created at the [Google Developer Console](https://console.developers.google.com/project).
+To deploy the Google Cloud Endpoints server, click 'Build'->'Deploy Module to App Engine'
+in Android Studio and follow the instructions.
+
 # Gradle for Android and Java Final Project
 
 In this project, you will create an app with multiple flavors that uses
