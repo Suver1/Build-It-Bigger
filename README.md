@@ -5,7 +5,7 @@ The app delivers random _funny_ jokes to the user with the click of a button.
 To receive the jokes, the app connects to a GCE server asynchronously, which in turn
 requests a Java library to supply the jokes. Meanwhile the joke is loading, a fullscreen
 ad or a loading bar is displayed, depending on ad availablitiy, and whether the free or
-paid app version is running. When a joke returnes to the app, it opens a Android library
+paid app version is running. When a joke returns to the app, it opens a Android library
 which finally displays the joke.
 
 ![](BuildItBiggerOverview.png)
