@@ -41,7 +41,7 @@ public class MyEndpoint {
     public MyBean fetchAndSetJoke() {
         // Fetches a joke from jokeProvider java library.
         MyBean response = new MyBean();
-        response.setData(new JokeProvider().getJoke());
+        response.setData(new JokeProvider().getRandomJoke());
 
         return response;
     }
